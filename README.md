@@ -16,41 +16,7 @@
 
 ---
 
-## 💻 Использование: API (Ruby) (примерное)
-
-### Переименование файлов 
-
-```ruby
-require 'file_sculptor'
-
-sculptor = FileSculptor.new("downloads", recursive: true)
-
-sculptor.rename_files do |path|
-  dirname = File.dirname(path)
-  ext = File.extname(path)
-  base = File.basename(path, ext)
-  "#{dirname}/#{base.downcase.gsub(/\s+/, '_')}#{ext}"
-end
-```
-### Организация файлов по типу
-
-```ruby
-sculptor.organize_files do |path|
-  ext = File.extname(path).delete('.').capitalize
-  "Organized/#{ext}"
-end
-```
-
-### Пример: организация по дате создания
-
-```ruby
-sculptor.organize_files do |path|
-  date = File.ctime(path).strftime("%-d.%m")
-  "Images/#{date}"
-end
-```
-
-## 🖥 Использование: CLI (не финальный вариант)
+## 🖥 Использование: CLI
 
 ### Установка CLI после установки библиотеки:
 
@@ -103,6 +69,42 @@ end
 ```ruby
 FileSculptor.new("path/to/dir", recursive: true, dry_run: false, logger: true)
 ```
+
+## 💻 Использование: API (Ruby) (примерное)
+
+### Переименование файлов 
+
+```ruby
+require 'file_sculptor'
+
+sculptor = FileSculptor.new("downloads", recursive: true)
+
+sculptor.rename_files do |path|
+  dirname = File.dirname(path)
+  ext = File.extname(path)
+  base = File.basename(path, ext)
+  "#{dirname}/#{base.downcase.gsub(/\s+/, '_')}#{ext}"
+end
+```
+### Организация файлов по типу
+
+```ruby
+sculptor.organize_files do |path|
+  ext = File.extname(path).delete('.').capitalize
+  "Organized/#{ext}"
+end
+```
+
+### Пример: организация по дате создания
+
+```ruby
+sculptor.organize_files do |path|
+  date = File.ctime(path).strftime("%-d.%m")
+  "Images/#{date}"
+end
+```
+
+
 
 ## 🛡 Безопасность и логирование
 
